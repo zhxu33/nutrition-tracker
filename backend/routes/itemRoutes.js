@@ -7,8 +7,13 @@ const {
   deleteItem,
 } = require("../controllers/itemController");
 
-router.route("/:id").get(getItems).post(setItem);
+const { protect } = require("../middleware/authMiddleware");
 
-router.route("/:id").delete(deleteItem).put(updateItem);
+router.route("/:id").get(protect, getItems).post(protect, setItem);
+
+router
+  .route("/:listid/:id")
+  .delete(protect, deleteItem)
+  .put(protect, updateItem);
 
 module.exports = router;

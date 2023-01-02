@@ -6,6 +6,12 @@ const List = require("../models/listModel");
 // @route   GET /api/lists
 // @access  Private
 const getLists = asyncHandler(async (req, res) => {
+  // Check for user
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
   const lists = await List.find({ user: req.user.id });
 
   res.status(200).json(lists);
@@ -15,13 +21,19 @@ const getLists = asyncHandler(async (req, res) => {
 // @route   POST /api/lists
 // @access  Private
 const setList = asyncHandler(async (req, res) => {
-  if (!req.body.name) {
-    res.status(400);
-    throw new Error("Please add a name field");
+  // Check for user
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not found");
   }
 
   const list = await List.create({
     name: req.body.name,
+    description: req.body.description,
+    calories: req.body.calories,
+    carbs: req.body.carbs,
+    fat: req.body.fat,
+    protein: req.body.protein,
     user: req.user.id,
   });
 
@@ -33,11 +45,6 @@ const setList = asyncHandler(async (req, res) => {
 // @access  Private
 const updateList = asyncHandler(async (req, res) => {
   const list = await List.findById(req.params.id);
-
-  if (!req.body.name) {
-    res.status(400);
-    throw new Error("Please add a name field");
-  }
 
   if (!list) {
     res.status(400);
@@ -58,7 +65,14 @@ const updateList = asyncHandler(async (req, res) => {
 
   List.findByIdAndUpdate(
     req.params.id,
-    { name: req.body.name },
+    {
+      name: req.body.name,
+      description: req.body.description,
+      calories: req.body.calories,
+      carbs: req.body.carbs,
+      fat: req.body.fat,
+      protein: req.body.protein,
+    },
     function (err) {
       if (err) {
         res.status(401);
@@ -97,9 +111,30 @@ const deleteList = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
+// @desc    Get list
+// @route   GET /api/lists
+// @access  Private
+const getList = asyncHandler(async (req, res) => {
+  // Check for user
+  if (!req.user) {
+    res.status(401);
+    throw new Error("User not found");
+  }
+
+  const list = await List.findById(req.params.id);
+
+  if (!list) {
+    res.status(400);
+    throw new Error("List not found");
+  }
+
+  res.status(200).json(list);
+});
+
 module.exports = {
   getLists,
   setList,
   updateList,
   deleteList,
+  getList,
 };

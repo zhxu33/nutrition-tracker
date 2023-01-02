@@ -9,10 +9,27 @@ const listSchema = mongoose.Schema(
     },
     name: {
       type: String,
-      require: [true, "Please add a name value"],
+      default: "Meal Plan",
+    },
+    description: {
+      type: String,
+      default: "Start editing your plan!",
     },
     calories: {
       type: Number,
+      default: 0,
+    },
+    carbs: {
+      type: Number,
+      default: 0,
+    },
+    fat: {
+      type: Number,
+      default: 0,
+    },
+    protein: {
+      type: Number,
+      default: 0,
     },
   },
   {

@@ -6,13 +6,13 @@ const theme = createTheme();
 const useStyles = makeStyles(() => ({
   container: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(2, 0, 0),
+    padding: theme.spacing(3, 0, 0),
   },
   icon: {
     marginRight: "20px",
   },
   button: {
-    marginTop: "40px",
+    marginTop: "10px",
   },
   cardGrid: {
     padding: "20px 0",
@@ -24,6 +24,9 @@ const useStyles = makeStyles(() => ({
   },
   cardContent: {
     flexGrow: 1,
+  },
+  cardMedia: {
+    paddingTop: "56.25%",
   },
   footer: {
     backgroundColor: theme.palette.background.paper,

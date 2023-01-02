@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { INTEGER } = require("sequelize");
 
 const itemSchema = mongoose.Schema(
   {
@@ -13,6 +14,19 @@ const itemSchema = mongoose.Schema(
     },
     calories: {
       type: Number,
+      default: 0,
+    },
+    carbs: {
+      type: Number,
+      default: 0,
+    },
+    fat: {
+      type: Number,
+      default: 0,
+    },
+    protein: {
+      type: Number,
+      default: 0,
     },
   },
   {
