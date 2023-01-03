@@ -5,7 +5,6 @@ import {
   TextField,
   Box,
   IconButton,
-  CardMedia,
 } from "@mui/material";
 import useStyles from "../styles/style";
 import { useParams } from "react-router-dom";
@@ -58,6 +57,42 @@ function List() {
     });
   };
 
+  useEffect(() => {
+    let i = 0;
+    let totalCalories = 0;
+    let totalCarbs = 0;
+    let totalFat = 0;
+    let totalProtein = 0;
+    while (i < items.length) {
+      totalCalories += items[i].calories;
+      totalCarbs += items[i].carbs;
+      totalFat += items[i].fat;
+      totalProtein += items[i].protein;
+      i++;
+    }
+    setList((prevState) => ({
+      ...prevState,
+      calories: totalCalories,
+      carbs: totalCarbs,
+      fat: totalFat,
+      protein: totalProtein,
+    }));
+  }, [items]);
+
+  useEffect(() => {
+    if (list !== []) {
+      const API_URL = "/api/lists/" + list._id;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userData.token}`,
+        },
+      };
+      axios.put(API_URL, list, config).then((response) => {
+        console.log(response.data);
+      });
+    }
+  }, [list, userData.token]);
+
   const addItem = () => {
     const API_URL = "/api/items/" + params.id;
     const API_KEY = "922cee6111af498583d623a63f4d5734";
@@ -82,9 +117,7 @@ function List() {
           protein: response.data.protein.value,
         };
         axios.post(API_URL, itemData, config).then(() => {
-          axios.get(API_URL, config).then((response) => {
-            setItems(response.data);
-          });
+          updateItems();
         });
       })
       .catch(() => {
@@ -92,11 +125,19 @@ function List() {
           name: input,
         };
         axios.post(API_URL, itemData, config).then(() => {
-          axios.get(API_URL, config).then((response) => {
-            setItems(response.data);
-          });
+          updateItems();
         });
       });
+  };
+
+  const dateFormat = (date) => {
+    let formatting = new Date(date);
+    let format = formatting.toLocaleString([], {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    return format.replace(",", "");
   };
 
   return (
@@ -111,56 +152,19 @@ function List() {
           >
             {list.name}
           </Typography>
-          <Typography
-            variant="h5"
-            align="center"
-            color="textSecondary"
-            paragraph
-          >
-            {list.description}
+          <Typography variant="h6" align="center" color="textPrimary" paragraph>
+            {dateFormat(list.date)}
           </Typography>
           <Box align="center" sx={{ display: "block", marginBottom: "25px" }}>
-            <Typography sx={{ display: "inline", width: "80px" }}>
-              Total • Calories: {list.calories}
+            <Typography>
+              Total • Calories: {list.calories} • Carbs: {list.carbs}g • Fat:{" "}
+              {list.fat}g • Protein: {list.protein}g
             </Typography>
-            <Typography
-              sx={{
-                display: "inline",
-                marginLeft: "6px",
-                width: "80px",
-              }}
-            >
-              • Carbs: {list.carbs}g
-            </Typography>
-            <Typography
-              sx={{
-                width: "80px",
-                display: "inline",
-                marginLeft: "6px",
-              }}
-            >
-              • Fat: {list.fat}g
-            </Typography>
-            <Typography
-              sx={{
-                width: "80px",
-                display: "inline",
-                marginLeft: "6px",
-              }}
-            >
-              • Protein: {list.protein}g
-            </Typography>
-            <CardMedia
-              className={classes.cardMedia}
-              image={"https://source.unsplash.com/1600x900?" + list.name}
-              title="Image title"
-              sx={{ marginTop: "10px" }}
-            />
           </Box>
           <Box align="center" sx={{ display: "block", marginBottom: "20px" }}>
             <TextField
               align="center"
-              label="Search for a food or dish"
+              label="Add a food or dish"
               type="text"
               variant="outlined"
               value={input}

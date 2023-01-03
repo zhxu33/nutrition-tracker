@@ -19,14 +19,14 @@ function List({ list, userData, updateLists }) {
   const [edit, setEdit] = useState(false);
   const [formData, setFormData] = useState({
     name: list.name,
-    description: list.description,
+    date: list.date,
     calories: list.calories,
     carbs: list.carbs,
     fat: list.fat,
     protein: list.protein,
   });
 
-  const { name, description, calories, carbs, fat, protein } = formData;
+  const { name, date, calories, carbs, fat, protein } = formData;
 
   const editClicked = () => {
     setEdit(!edit);
@@ -39,7 +39,7 @@ function List({ list, userData, updateLists }) {
       };
       const listData = {
         name: name,
-        description: description,
+        date: date,
       };
       axios.put(API_URL, listData, config).then((response) => {
         console.log(response.data);
@@ -74,9 +74,31 @@ function List({ list, userData, updateLists }) {
   const cancelClicked = (e) => {
     setFormData({
       name: list.name,
-      description: list.description,
+      date: list.date,
     });
     setEdit(!edit);
+  };
+
+  const dateFormat = () => {
+    let formatting = new Date(date);
+    formatting = formatting.toLocaleString([], {
+      timeZone: "UTC",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    return formatting.replace(",", "");
+  };
+
+  const inputDateFormat = () => {
+    let format = dateFormat();
+    format =
+      format.substr(6, 4) +
+      "-" +
+      format.substr(0, 2) +
+      "-" +
+      format.substr(3, 2);
+    return format;
   };
 
   return (
@@ -97,56 +119,29 @@ function List({ list, userData, updateLists }) {
                 onChange={onChange}
                 value={name}
                 sx={{
-                  width: "400px",
+                  width: "300px",
                   marginTop: "-5.5px",
                   marginBottom: "2.5px",
                   fontSize: "23.7px",
+                  display: "block",
                 }}
               />
               <Input
-                placeholder="Describe Your Plan"
-                type="text"
-                name="description"
+                type="date"
+                name="date"
                 onChange={onChange}
-                value={description}
-                multiline
+                defaultValue={inputDateFormat()}
                 sx={{
-                  width: "400px",
+                  width: "150px",
                   marginTop: "-5.5px",
                   marginBottom: "2.5px",
                   fontSize: "16px",
                 }}
               />
               <Box sx={{ marginTop: "10px" }}>
-                <Typography sx={{ display: "inline", width: "80px" }}>
-                  • Calories: {calories}
-                </Typography>
-                <Typography
-                  sx={{
-                    display: "inline",
-                    marginLeft: "6px",
-                    width: "80px",
-                  }}
-                >
-                  • Carbs: {carbs}g
-                </Typography>
-                <Typography
-                  sx={{
-                    width: "80px",
-                    display: "inline",
-                    marginLeft: "6px",
-                  }}
-                >
-                  • Fat: {fat}g
-                </Typography>
-                <Typography
-                  sx={{
-                    width: "80px",
-                    display: "inline",
-                    marginLeft: "6px",
-                  }}
-                >
-                  • Protein: {protein}g
+                <Typography noWrap sx={{ fontSize: "13px" }}>
+                  Total • Calories: {calories} • Carbs: {carbs}g • Fat: {fat}g •
+                  Protein: {protein}g
                 </Typography>
               </Box>
             </CardContent>
@@ -184,38 +179,12 @@ function List({ list, userData, updateLists }) {
                 {name}
               </Typography>
               <Typography style={{ wordWrap: "break-word" }}>
-                {description}
+                {dateFormat()}
               </Typography>
               <Box sx={{ marginTop: "10px" }}>
-                <Typography sx={{ display: "inline", width: "80px" }}>
-                  • Calories: {calories}
-                </Typography>
-                <Typography
-                  sx={{
-                    display: "inline",
-                    marginLeft: "6px",
-                    width: "80px",
-                  }}
-                >
-                  • Carbs: {carbs}g
-                </Typography>
-                <Typography
-                  sx={{
-                    width: "80px",
-                    display: "inline",
-                    marginLeft: "6px",
-                  }}
-                >
-                  • Fat: {fat}g
-                </Typography>
-                <Typography
-                  sx={{
-                    width: "80px",
-                    display: "inline",
-                    marginLeft: "6px",
-                  }}
-                >
-                  • Protein: {protein}g
+                <Typography noWrap sx={{ fontSize: "13px" }}>
+                  Total • Calories: {calories} • Carbs: {carbs}g • Fat: {fat}g •
+                  Protein: {protein}g
                 </Typography>
               </Box>
             </CardContent>

@@ -43,6 +43,7 @@ function Item({ item, userData, updateItems }) {
       };
       axios.put(API_URL, itemData, config).then((response) => {
         console.log(response.data);
+        updateItems();
       });
     }
   };
@@ -77,6 +78,9 @@ function Item({ item, userData, updateItems }) {
             expandIcon={<ExpandMoreIcon />}
             sx={{ justifyContent: "center" }}
           >
+            <Typography>{name}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
             <Input
               placeholder="Name"
               type="text"
@@ -85,13 +89,10 @@ function Item({ item, userData, updateItems }) {
               value={name}
               sx={{
                 width: "250px",
-                marginTop: "-3.2px",
-                marginBottom: "2.5px",
+                marginBottom: "10px",
                 fontSize: "16px",
               }}
             />
-          </AccordionSummary>
-          <AccordionDetails>
             <CardMedia
               sx={{
                 paddingTop: "56.25%",
@@ -103,6 +104,7 @@ function Item({ item, userData, updateItems }) {
             <TextField
               required
               placeholder="Calories"
+              helperText="Calories"
               type="number"
               name="calories"
               onChange={onChange}
@@ -116,6 +118,7 @@ function Item({ item, userData, updateItems }) {
             />
             <TextField
               placeholder="Carbs"
+              helperText="Carbs"
               type="number"
               name="carbs"
               onChange={onChange}
@@ -130,6 +133,7 @@ function Item({ item, userData, updateItems }) {
             />
             <TextField
               placeholder="Fat"
+              helperText="Fat"
               type="number"
               name="fat"
               onChange={onChange}
@@ -144,6 +148,7 @@ function Item({ item, userData, updateItems }) {
             />
             <TextField
               placeholder="Protein"
+              helperText="Protein"
               type="number"
               name="protein"
               onChange={onChange}
@@ -181,35 +186,9 @@ function Item({ item, userData, updateItems }) {
               image={"https://source.unsplash.com/1600x900?" + name}
               title="Image title"
             />
-            <Typography sx={{ display: "inline", width: "80px" }}>
-              • Calories: {calories}
-            </Typography>
-            <Typography
-              sx={{
-                display: "inline",
-                marginLeft: "6px",
-                width: "80px",
-              }}
-            >
-              • Carbs: {carbs}g
-            </Typography>
-            <Typography
-              sx={{
-                width: "80px",
-                display: "inline",
-                marginLeft: "6px",
-              }}
-            >
-              • Fat: {fat}g
-            </Typography>
-            <Typography
-              sx={{
-                width: "80px",
-                display: "inline",
-                marginLeft: "6px",
-              }}
-            >
-              • Protein: {protein}g
+            <Typography noWrap sx={{ fontSize: "16px" }}>
+              • Calories: {calories} • Carbs: {carbs}g • Fat: {fat}g • Protein:{" "}
+              {protein}g
             </Typography>
           </AccordionDetails>
           <AccordionActions>

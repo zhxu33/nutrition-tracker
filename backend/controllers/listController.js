@@ -29,7 +29,7 @@ const setList = asyncHandler(async (req, res) => {
 
   const list = await List.create({
     name: req.body.name,
-    description: req.body.description,
+    date: req.body.date,
     calories: req.body.calories,
     carbs: req.body.carbs,
     fat: req.body.fat,
@@ -67,7 +67,7 @@ const updateList = asyncHandler(async (req, res) => {
     req.params.id,
     {
       name: req.body.name,
-      description: req.body.description,
+      date: req.body.date,
       calories: req.body.calories,
       carbs: req.body.carbs,
       fat: req.body.fat,

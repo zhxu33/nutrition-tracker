@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import List from "./pages/List";
+import Data from "./pages/Data";
 import Header from "./components/Header";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/list/:id" element={<List />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/data" element={<Data />} />
         </Routes>
       </Router>
     </>

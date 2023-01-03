@@ -1,5 +1,15 @@
 const mongoose = require("mongoose");
 
+const defaultDate = () => {
+  let formatting = new Date();
+  let format = formatting.toLocaleString([], {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  return format.replace(",", "");
+};
+
 const listSchema = mongoose.Schema(
   {
     user: {
@@ -11,9 +21,9 @@ const listSchema = mongoose.Schema(
       type: String,
       default: "Meal Plan",
     },
-    description: {
+    date: {
       type: String,
-      default: "Start editing your plan!",
+      default: defaultDate,
     },
     calories: {
       type: Number,
