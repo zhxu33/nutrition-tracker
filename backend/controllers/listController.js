@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 
 const List = require("../models/listModel");
+const Item = require("../models/itemModel");
 
 // @desc    Get lists
 // @route   GET /api/lists
@@ -34,6 +35,7 @@ const setList = asyncHandler(async (req, res) => {
     carbs: req.body.carbs,
     fat: req.body.fat,
     protein: req.body.protein,
+    image: req.body.image,
     user: req.user.id,
   });
 
@@ -72,6 +74,7 @@ const updateList = asyncHandler(async (req, res) => {
       carbs: req.body.carbs,
       fat: req.body.fat,
       protein: req.body.protein,
+      image: req.body.image,
     },
     function (err) {
       if (err) {
@@ -106,6 +109,8 @@ const deleteList = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("User not authorized");
   }
+
+  await Item.deleteMany({ list: req.params.id });
 
   await list.remove();
   res.status(200).json({ id: req.params.id });

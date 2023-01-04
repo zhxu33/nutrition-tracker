@@ -91,7 +91,7 @@ function Data() {
   };
 
   useEffect(() => {
-    let sortedLists = [...lists];
+    let sortedLists = lists;
     sortedLists.sort((a, b) => {
       let date = new Date(a.date);
       let date2 = new Date(b.date);
@@ -131,44 +131,51 @@ function Data() {
       });
     }
     setListData({
-      labels: sortedLists.map((list) => dateFormat(list.date)),
+      labels: sortedLists.map((list, index) => {
+        if (index === 0 || index === sortedLists.length - 1) {
+          return dateFormat(list.date);
+        } else {
+          return " ";
+        }
+      }),
       datasets: [
         {
           label: "Calories",
-          hidden: true,
           data: sortedLists.map((list) => list.calories),
         },
         {
           label: "Carbs",
+          hidden: true,
           data: sortedLists.map((list) => list.carbs),
         },
         {
           label: "Fat",
+          hidden: true,
           data: sortedLists.map((list) => list.fat),
         },
         {
           label: "Protein",
+          hidden: true,
           data: sortedLists.map((list) => list.protein),
         },
       ],
     });
-    /*
     i = 0;
     let output = [0, 0, 0];
     while (i < sortedLists.length) {
       output[0] += sortedLists[i].carbs;
       output[1] += sortedLists[i].fat;
       output[2] += sortedLists[i].protein;
+      i += 1;
     }
     setPieData({
-      labels: ["carbs", "fat", "protein"],
+      labels: ["Carbs", "Fat", "Protein"],
       datasets: [
         {
-          label: "data",
           data: output,
         },
       ],
-    }); */
+    });
   }, [lists, minDate, maxDate]);
 
   return (
@@ -237,11 +244,27 @@ function Data() {
           </Grid>
         </Grid>
       </div>
-      <Box sx={{ maxWidth: "750px", margin: "10px auto" }}>
-        {chart === 1 ? <LineChart chartData={listData} /> : <></>}
-        {chart === 2 ? <BarChart chartData={listData} /> : <></>}
-        {chart === 3 ? <PieChart chartData={listData} /> : <></>}
-      </Box>
+      {chart === 1 ? (
+        <Box sx={{ maxWidth: "750px", margin: "10px auto" }}>
+          <LineChart chartData={listData} />
+        </Box>
+      ) : (
+        <></>
+      )}
+      {chart === 2 ? (
+        <Box sx={{ maxWidth: "750px", margin: "10px auto" }}>
+          <BarChart chartData={listData} />
+        </Box>
+      ) : (
+        <></>
+      )}
+      {chart === 3 ? (
+        <Box sx={{ maxWidth: "300px", margin: "10px auto" }}>
+          <PieChart chartData={pieData} />
+        </Box>
+      ) : (
+        <></>
+      )}
     </main>
   );
 }

@@ -28,7 +28,7 @@ function List({ list, userData, updateLists }) {
 
   const { name, date, calories, carbs, fat, protein } = formData;
 
-  const editClicked = () => {
+  const editClicked = async () => {
     setEdit(!edit);
     if (edit === true) {
       const API_URL = "/api/lists/" + list._id;
@@ -39,7 +39,7 @@ function List({ list, userData, updateLists }) {
       };
       const listData = {
         name: name,
-        date: date,
+        date: dateFormat(date),
       };
       axios.put(API_URL, listData, config).then((response) => {
         console.log(response.data);
@@ -106,11 +106,19 @@ function List({ list, userData, updateLists }) {
       {edit ? (
         <Grid item xs={12} sm={6} md={4}>
           <Card className={classes.card}>
-            <CardMedia
-              className={classes.cardMedia}
-              image={"https://source.unsplash.com/1600x900?" + name}
-              title="Image title"
-            />
+            {list.image === "" ? (
+              <CardMedia
+                className={classes.cardMedia}
+                image={"https://source.unsplash.com/1600x900?" + name}
+                title="Image title"
+              />
+            ) : (
+              <CardMedia
+                className={classes.cardMedia}
+                image={list.image}
+                title="Image title"
+              />
+            )}
             <CardContent className={classes.cardContent}>
               <Input
                 placeholder="Plan Name"
@@ -140,7 +148,7 @@ function List({ list, userData, updateLists }) {
               />
               <Box sx={{ marginTop: "10px" }}>
                 <Typography noWrap sx={{ fontSize: "13px" }}>
-                  Total • Calories: {calories} • Carbs: {carbs}g • Fat: {fat}g •
+                  Total ~ Calories: {calories} • Carbs: {carbs}g • Fat: {fat}g •
                   Protein: {protein}g
                 </Typography>
               </Box>
@@ -169,11 +177,19 @@ function List({ list, userData, updateLists }) {
       ) : (
         <Grid item xs={12} sm={6} md={4}>
           <Card className={classes.card}>
-            <CardMedia
-              className={classes.cardMedia}
-              image={"https://source.unsplash.com/1600x900?" + name}
-              title="Image title"
-            />
+            {list.image === "" ? (
+              <CardMedia
+                className={classes.cardMedia}
+                image={"https://source.unsplash.com/1600x900?" + name}
+                title="Image title"
+              />
+            ) : (
+              <CardMedia
+                className={classes.cardMedia}
+                image={list.image}
+                title="Image title"
+              />
+            )}
             <CardContent className={classes.cardContent}>
               <Typography noWrap gutterBottom variant="h5">
                 {name}
@@ -183,7 +199,7 @@ function List({ list, userData, updateLists }) {
               </Typography>
               <Box sx={{ marginTop: "10px" }}>
                 <Typography noWrap sx={{ fontSize: "13px" }}>
-                  Total • Calories: {calories} • Carbs: {carbs}g • Fat: {fat}g •
+                  Total ~ Calories: {calories} • Carbs: {carbs}g • Fat: {fat}g •
                   Protein: {protein}g
                 </Typography>
               </Box>

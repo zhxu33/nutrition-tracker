@@ -41,6 +41,10 @@ const listSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    image: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,

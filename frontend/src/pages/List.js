@@ -5,6 +5,7 @@ import {
   TextField,
   Box,
   IconButton,
+  Button,
 } from "@mui/material";
 import useStyles from "../styles/style";
 import { useParams } from "react-router-dom";
@@ -19,6 +20,7 @@ function List() {
   const [items, setItems] = useState([]);
   const [list, setList] = useState({});
   const [input, setInput] = useState("");
+  const [autoFill, setAutoFill] = useState(true);
 
   let userData;
 
@@ -45,7 +47,7 @@ function List() {
     });
   }, [params.id, userData.token]);
 
-  const updateItems = () => {
+  const updateItems = async () => {
     const API_URL = "/api/items/" + params.id;
     const config = {
       headers: {
@@ -54,6 +56,18 @@ function List() {
     };
     axios.get(API_URL, config).then((response) => {
       setItems(response.data);
+      let i = response.data.length - 1;
+      while (i >= 0) {
+        if (response.data[i].image !== "") {
+          const image = response.data[i].image;
+          setList((prevState) => ({
+            ...prevState,
+            image,
+          }));
+          break;
+        }
+        i -= 1;
+      }
     });
   };
 
@@ -87,47 +101,75 @@ function List() {
           Authorization: `Bearer ${userData.token}`,
         },
       };
-      axios.put(API_URL, list, config).then((response) => {
-        console.log(response.data);
-      });
+      axios.put(API_URL, list, config);
     }
   }, [list, userData.token]);
 
-  const addItem = () => {
-    const API_URL = "/api/items/" + params.id;
-    const API_KEY = "922cee6111af498583d623a63f4d5734";
-    const API_URL2 =
-      "https://api.spoonacular.com/recipes/guessNutrition?apiKey=" +
-      API_KEY +
-      "&title=" +
-      input;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userData.token}`,
-      },
-    };
-    axios
-      .get(API_URL2)
-      .then((response) => {
-        const itemData = {
-          name: input,
-          calories: response.data.calories.value,
-          carbs: response.data.carbs.value,
-          fat: response.data.fat.value,
-          protein: response.data.protein.value,
-        };
-        axios.post(API_URL, itemData, config).then(() => {
-          updateItems();
+  const addItem = async () => {
+    if (autoFill) {
+      const API_URL = "/api/items/" + params.id;
+      const API_URL2 =
+        "https://api.spoonacular.com/recipes/complexSearch?query=" +
+        input +
+        "&number=1&apiKey=922cee6111af498583d623a63f4d5734";
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userData.token}`,
+        },
+      };
+      axios
+        .get(API_URL2)
+        .then((res) => {
+          const API_URL3 =
+            "https://api.spoonacular.com/recipes/" +
+            res.data["results"][0].id +
+            "/nutritionWidget.json?apiKey=922cee6111af498583d623a63f4d5734";
+          axios
+            .get(API_URL3)
+            .then((response) => {
+              const itemData = {
+                name: input,
+                calories: Math.round(parseInt(response.data.calories)),
+                carbs: Math.round(parseInt(response.data.carbs)),
+                fat: Math.round(parseInt(response.data.fat)),
+                protein: Math.round(parseInt(response.data.protein)),
+                image: res.data["results"][0].image,
+              };
+              axios.post(API_URL, itemData, config).then(() => {
+                updateItems();
+              });
+            })
+            .catch(() => {
+              const itemData = {
+                name: input,
+              };
+              axios.post(API_URL, itemData, config).then(() => {
+                updateItems();
+              });
+            });
+        })
+        .catch(() => {
+          const itemData = {
+            name: input,
+          };
+          axios.post(API_URL, itemData, config).then(() => {
+            updateItems();
+          });
         });
-      })
-      .catch(() => {
-        const itemData = {
-          name: input,
-        };
-        axios.post(API_URL, itemData, config).then(() => {
-          updateItems();
-        });
+    } else {
+      const API_URL = "/api/items/" + params.id;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userData.token}`,
+        },
+      };
+      const itemData = {
+        name: input,
+      };
+      axios.post(API_URL, itemData, config).then(() => {
+        updateItems();
       });
+    }
   };
 
   const dateFormat = (date) => {
@@ -157,7 +199,7 @@ function List() {
           </Typography>
           <Box align="center" sx={{ display: "block", marginBottom: "25px" }}>
             <Typography>
-              Total • Calories: {list.calories} • Carbs: {list.carbs}g • Fat:{" "}
+              Total ~ Calories: {list.calories} • Carbs: {list.carbs}g • Fat:{" "}
               {list.fat}g • Protein: {list.protein}g
             </Typography>
           </Box>
@@ -182,6 +224,18 @@ function List() {
                 }}
               />
             </IconButton>
+            <Button
+              onClick={() => setAutoFill(!autoFill)}
+              variant="outlined"
+              sx={{
+                marginLeft: "10px",
+                height: "55px",
+                width: "50px",
+                fontSize: "12px",
+              }}
+            >
+              AutoFill: {autoFill ? "on" : "off"}
+            </Button>
           </Box>
         </Container>
         <Container sx={{ width: "500px" }}>

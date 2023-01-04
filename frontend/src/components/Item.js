@@ -21,9 +21,10 @@ function Item({ item, userData, updateItems }) {
     carbs: item.carbs,
     fat: item.fat,
     protein: item.protein,
+    image: item.image,
   });
 
-  const { name, calories, carbs, fat, protein } = formData;
+  const { name, calories, carbs, fat, protein, image } = formData;
 
   const editClicked = () => {
     setEdit(!edit);
@@ -78,7 +79,7 @@ function Item({ item, userData, updateItems }) {
             expandIcon={<ExpandMoreIcon />}
             sx={{ justifyContent: "center" }}
           >
-            <Typography>{name}</Typography>
+            <Typography noWrap>{name}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Input
@@ -91,16 +92,21 @@ function Item({ item, userData, updateItems }) {
                 width: "250px",
                 marginBottom: "10px",
                 fontSize: "16px",
+                display: "block",
               }}
             />
-            <CardMedia
-              sx={{
-                paddingTop: "56.25%",
-                marginBottom: "20px",
-              }}
-              image={"https://source.unsplash.com/1600x900?" + name}
-              title="Image title"
-            />
+            {image !== "" ? (
+              <CardMedia
+                sx={{
+                  paddingTop: "56.25%",
+                  marginBottom: "20px",
+                }}
+                image={image}
+                title="Image title"
+              />
+            ) : (
+              <></>
+            )}
             <TextField
               required
               placeholder="Calories"
@@ -178,16 +184,20 @@ function Item({ item, userData, updateItems }) {
             <Typography>{name}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <CardMedia
-              sx={{
-                paddingTop: "56.25%",
-                marginBottom: "20px",
-              }}
-              image={"https://source.unsplash.com/1600x900?" + name}
-              title="Image title"
-            />
+            {image !== "" ? (
+              <CardMedia
+                sx={{
+                  paddingTop: "56.25%",
+                  marginBottom: "20px",
+                }}
+                image={image}
+                title="Image title"
+              />
+            ) : (
+              <></>
+            )}
             <Typography noWrap sx={{ fontSize: "16px" }}>
-              • Calories: {calories} • Carbs: {carbs}g • Fat: {fat}g • Protein:{" "}
+              ~ Calories: {calories} • Carbs: {carbs}g • Fat: {fat}g • Protein:{" "}
               {protein}g
             </Typography>
           </AccordionDetails>

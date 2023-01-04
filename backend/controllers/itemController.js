@@ -65,6 +65,7 @@ const setItem = asyncHandler(async (req, res) => {
     carbs: req.body.carbs,
     fat: req.body.fat,
     protein: req.body.protein,
+    image: req.body.image,
     list: req.params.id,
   });
 
@@ -119,6 +120,7 @@ const updateItem = asyncHandler(async (req, res) => {
       carbs: req.body.carbs,
       fat: req.body.fat,
       protein: req.body.protein,
+      image: req.body.image,
     },
     function (err) {
       if (err) {

@@ -8,7 +8,6 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-  Box,
 } from "@mui/material";
 import useStyles from "../styles/style";
 import axios from "axios";
@@ -45,7 +44,7 @@ function Dashboard() {
       });
   }, [userData.token]);
 
-  const updateLists = () => {
+  const updateLists = (image) => {
     const API_URL = "/api/lists";
     const config = {
       headers: {
@@ -57,20 +56,31 @@ function Dashboard() {
     });
   };
 
-  const addList = () => {
+  const addList = async () => {
     const API_URL = "/api/lists";
+    const API_URL2 =
+      "https://api.spoonacular.com/recipes/random?number=1&apiKey=922cee6111af498583d623a63f4d5734";
     const config = {
       headers: {
         Authorization: `Bearer ${userData.token}`,
       },
     };
+    let image;
+    try {
+      const res = await axios.get(API_URL2);
+      if (res.data) {
+        image = res.data.recipes[0].image;
+        console.log(image);
+      }
+    } catch (err) {
+      console.log(err);
+    }
     const listData = {
       name: "Meal",
+      image: image,
     };
     axios.post(API_URL, listData, config).then(() => {
-      axios.get(API_URL, config).then((response) => {
-        setLists(response.data);
-      });
+      updateLists();
     });
   };
 
