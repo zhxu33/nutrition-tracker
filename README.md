@@ -3,7 +3,7 @@ A full stack web application where users can create an account, log meals, track
 
 Demo Link: https://nutritiontrackerzhxu33.herokuapp.com/
 
-# How It's Made
-Tech used: Javascript, React, NodeJS, Express, MongoDB
+# Tech used: Javascript, React, NodeJS, Express, MongoDB
+This website was built using the MERN stack. For the front end, I used React and styled components with Material UI to create a dynamic and responsive user interface that is mobile friendly. I used Spoonacular API to add the search functionality which allows users to autofill nutrient data and image for food items. A data visualization for calories and amcronutrient intake trend is incorporated using the ChartJS library. The backend is built in NodeJS, using an Express web server and MongoDB database serving a REST API. A secure user registration and authentication is implemented using Bycrpt and JSON Web Tokens.  
 
-My first full stack web application using mern. Built backend is NodeJS using Express web server and MongoDB database. Created a dynamic and responsive user interface using React and styled components with Material UI in the front end. Incorporated data visualizations for calories and macronutrient intake trends using ChartJS library. Used Spoonacular API to add autofill functionality for food nutrient data and images. Implemented secure user registration and authentication  using Bcrypt and JSON Web Tokens.
+
