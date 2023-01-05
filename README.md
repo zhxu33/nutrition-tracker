@@ -2,7 +2,7 @@
 A full stack web application where users can create an account, log meals, track and visualize calorie and macronutrient intake trends.
 
 Demo Link: https://nutritiontrackerzhxu33.herokuapp.com/
-https://user-images.githubusercontent.com/77419802/210731215-a9c75b6b-9d04-4e36-956b-171fe3e7e2b3.mp4
+<a href="https://gyazo.com/1289e8ba9c4a76cf4a50b5fae8ee6d1b"><img src="https://i.gyazo.com/1289e8ba9c4a76cf4a50b5fae8ee6d1b.gif" alt="Image from Gyazo" width="1919.999999999999"/></a>
 
 
 # Tech used: Javascript, React, NodeJS, Express, MongoDB
