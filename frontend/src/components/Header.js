@@ -42,7 +42,7 @@ function Header() {
             onClick={dashboardClicked}
             sx={{ cursor: "pointer" }}
           >
-            Nutrition Tracker
+            Nutritrack
           </Typography>
           {foundUser ? (
             <>
