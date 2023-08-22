@@ -1,0 +1,15 @@
+FROM node:14
+
+WORKDIR /usr/local/bin/server
+
+COPY . /usr/local/bin/server/
+
+RUN npm install
+
+RUN npm install --force --prefix client
+
+RUN npm run --prefix client build
+
+EXPOSE 5000
+
+CMD ["npm", "start"]
