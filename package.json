@@ -10,7 +10,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --force --prefix frontend && npm run build --prefix frontend"
   },
-  "author": "Zhichao Xu",
+  "author": "James Xu",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",

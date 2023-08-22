@@ -2,9 +2,8 @@ version: "3"
 
 services:
   frontend:
-    image: react-app
     stdin_open: true
-    container_name: react-ui
+    container_name: nutritrack-ui
     build: ./frontend
     ports:
       - "3000:3000"
@@ -14,9 +13,9 @@ services:
       - nutritrack
 
   backend:
-    image: api-server
     build: ./
-    container_name: node-api
+    container_name: nutritrack-api
+    env_file: docker.env
     ports:
       - "5000:5000"
     networks:
