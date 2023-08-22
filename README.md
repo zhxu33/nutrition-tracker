@@ -5,11 +5,11 @@ A full stack web application where users can create an account, log meals, and v
 <a href="https://gyazo.com/1289e8ba9c4a76cf4a50b5fae8ee6d1b"><img src="https://i.gyazo.com/1289e8ba9c4a76cf4a50b5fae8ee6d1b.gif" alt="Image from Gyazo" width="1919.999999999999"/></a>
 ## Built With
 React, Material-UI, Node.js, Express, MongoDB, Docker
-### Usage
+## Usage
   ```
   docker compose up
   ```
-### Deployment On Heroku:
+## Deployment On Heroku:
 ```
 heroku login
 heroku container:login
