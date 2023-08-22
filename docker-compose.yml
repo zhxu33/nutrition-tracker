@@ -1,19 +1,19 @@
 version: "3"
 
 services:
-  frontend:
+  client:
     stdin_open: true
     container_name: nutritrack-ui
-    build: ./frontend
+    build: ./server/client
     ports:
       - "3000:3000"
     depends_on:
-      - backend
+      - server
     networks:
       - nutritrack
 
-  backend:
-    build: ./
+  server:
+    build: ./server
     container_name: nutritrack-api
     env_file: docker.env
     ports:
@@ -25,7 +25,7 @@ services:
 
   mongo:
     image: mongo
-    container_name: mongo-db
+    container_name: nutritrack-db
     ports:
       - "27017:27017"
     networks:

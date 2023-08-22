@@ -4,11 +4,11 @@
   "description": "Nutrition Tracker",
   "main": "server.js",
   "scripts": {
-    "start": "node backend/server.js",
-    "server": "nodemon backend/server.js --ignore client",
-    "client": "npm start --prefix frontend",
+    "start": "node server.js",
+    "server": "nodemon server.js --ignore client",
+    "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --force --prefix frontend && npm run build --prefix frontend"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --force --prefix client && npm run build --prefix client"
   },
   "author": "James Xu",
   "license": "MIT",
