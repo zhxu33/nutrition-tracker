@@ -17,5 +17,5 @@ heroku create nutritrack
 docker build -t nutritrack -f Dockerfile.web .
 heroku container:push --recursive -a nutritrack
 heroku container:release -a nutritrack web
-heroku open nutritrack
+heroku open -app nutritrack
 ```
