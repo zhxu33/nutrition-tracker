@@ -14,6 +14,11 @@ EXPOSE 5000
 
 CMD ["npm", "start"]
 
+#add .env
+#MONGO_URL = connection_link
+#NODE_ENV = production
+#JWT_SECRET = secret
+
 #build test: 
 #docker build -t nutritrack -f Dockerfile.web .
 #docker run -it -p 5000:5000 nutritrack
