@@ -1,8 +1,8 @@
 FROM node:14
 
-WORKDIR /usr/local/bin/server
+WORKDIR /app
 
-COPY . /usr/local/bin/server/
+COPY . .
 
 RUN npm install
 
@@ -13,3 +13,9 @@ RUN npm run --prefix client build
 EXPOSE 5000
 
 CMD ["npm", "start"]
+
+#docker run -it -p 5000:5000 nutritrack
+#docker build -t nutritrack -f Dockerfile.web .
+#heroku container:push --recursive -a nutritrack
+#heroku container:release -a nutritrack web
+#heroku open --app nutritrack
