@@ -14,8 +14,13 @@ EXPOSE 5000
 
 CMD ["npm", "start"]
 
-#docker run -it -p 5000:5000 nutritrack
+#build test: 
 #docker build -t nutritrack -f Dockerfile.web .
+#docker run -it -p 5000:5000 nutritrack
+
+#deployment
+#heroku login
+#heroku container:login
 #heroku container:push --recursive -a nutritrack
 #heroku container:release -a nutritrack web
 #heroku open --app nutritrack
