@@ -24,6 +24,7 @@ CMD ["npm", "start"]
 #docker run -it -p 5000:5000 nutritrack
 
 #deployment
+#change file name to Dockerfile.web
 #heroku login
 #heroku container:login
 #heroku container:push --recursive -a nutritrack
