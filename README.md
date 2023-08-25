@@ -1,6 +1,7 @@
 # Nutritrack
 A web application where users can create an account, log meals, visualize calorie and macronutrient intake trends.
 
+## Getting Started
 ### Prerequisites
 * npm
   ```sh
