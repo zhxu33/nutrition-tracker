@@ -9,7 +9,11 @@ A web application where users can create an account, log meals, visualize calori
   ```sh
   npm install npm@latest -g
   ```
-1. Add .env in server folder
+1. Add .env to server
+   ```
+   cd server
+   cd . > .env
+   ```
 2. Configure environment variables
    ```
     MONGO_URL = link
@@ -22,10 +26,12 @@ A web application where users can create an account, log meals, visualize calori
    npm install --force --prefix client
    ```   
 ### Usage
+ * Configure proxy to "http:localhost:5000" in server/client/package.json
 ```sh
 npm start dev
 ```
 ### Run on local machine
+ * Configure proxy to "http://nutritrack-api:5000" in server/client/package.json
 Download Docker: https://www.docker.com/products/docker-desktop/
 ```
 docker compose up
