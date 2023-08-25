@@ -12,9 +12,9 @@ A web application where users can create an account, log meals, visualize calori
 1. Add .env in server folder
 2. Enter environment variables
    ```
-  MONGO_URL = link
-  NODE_ENV = production
-  JWT_SECRET = secret
+    MONGO_URL = link
+    NODE_ENV = production
+    JWT_SECRET = secret
    ```
 4. Install NPM packages
    ```sh
