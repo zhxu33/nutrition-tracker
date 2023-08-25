@@ -31,11 +31,8 @@ services:
     networks:
       - nutritrack
     volumes:
-      - mongo-data:/data/db
+      - ./data:/data/db
 
 networks:
   nutritrack:
     driver: bridge
-volumes:
-  mongo-data:
-    driver: local
