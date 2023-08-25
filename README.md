@@ -32,7 +32,7 @@ npm start dev
 ```
 ### Run on local machine
  * Configure proxy to "http://nutritrack-api:5000" in server/client/package.json
-Download Docker: https://www.docker.com/products/docker-desktop/
+ * Download Docker: https://www.docker.com/products/docker-desktop/
 ```
 docker compose up
 ```
