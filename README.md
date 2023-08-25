@@ -10,7 +10,7 @@ A web application where users can create an account, log meals, visualize calori
   npm install npm@latest -g
   ```
 1. Add .env in server folder
-2. Enter environment variables
+2. Configure environment variables
    ```
     MONGO_URL = link
     NODE_ENV = production
