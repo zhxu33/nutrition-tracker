@@ -6,6 +6,14 @@ https://nutritrack-7081b988c353.herokuapp.com/
 <a href="https://gyazo.com/30175083e2dae4ae9c3e6b9b1174e71a"><img src="https://i.gyazo.com/30175083e2dae4ae9c3e6b9b1174e71a.gif" alt="Image from Gyazo" width="1280"/></a>
 
 ## Getting Started
+
+### Run on local machine
+ * Configure proxy to "http://nutritrack-api:5000" in server/client/package.json
+ * Download Docker: https://www.docker.com/products/docker-desktop/
+```
+docker compose up
+```
+
 ### Prerequisites
 * npm
   ```sh
@@ -26,15 +34,10 @@ https://nutritrack-7081b988c353.herokuapp.com/
    ```sh
    npm install
    npm install --force --prefix client
-   ```   
+   ```
+   
 ### Usage
  * Configure proxy to "http:localhost:5000" in server/client/package.json
 ```sh
 npm start dev
-```
-### Run on local machine
- * Configure proxy to "http://nutritrack-api:5000" in server/client/package.json
- * Download Docker: https://www.docker.com/products/docker-desktop/
-```
-docker compose up
 ```
