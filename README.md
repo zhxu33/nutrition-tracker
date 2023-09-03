@@ -22,13 +22,13 @@ docker compose up
 1. Add .env to server
    ```
    cd server
-   cd . > .env
+   echo.>.env
    ```
 2. Configure environment variables
    ```
     MONGO_URL = link
     NODE_ENV = production
-    JWT_SECRET = secret
+    JWT_SECRET = key
    ```
 4. Install NPM packages
    ```sh
