@@ -19,7 +19,7 @@ docker compose up
   ```sh
   npm install npm@latest -g
   ```
-1. Add .env to server
+1. Create .env in server
    ```
    cd server
    echo.>.env
